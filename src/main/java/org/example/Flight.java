@@ -1,14 +1,18 @@
 package org.example;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
-public class Flight implements Comparable<Flight> {
+public abstract class Flight implements Comparable<Flight> {
     private int flightId;
     private String origin;
     private String destination;
     private String departureDate; // Format: YYYY-MM-DD
     private String departureTime; // Format: HH:MM
     private double price;
+
+    private int capacity = 300;
 
     public Flight(int flightId, String origin, String destination, String departureDate, String departureTime, double price) {
         this.flightId = flightId;
@@ -19,13 +23,22 @@ public class Flight implements Comparable<Flight> {
         this.price = price;
     }
 
-    private void flightDetails() {
-        //TODO
-    }
+    public abstract void flightDetails();
 
-    private boolean isAvailable() {
-        //TODO
-        return true;
+    /**
+     * allows to check if a flight is full
+     * @param users the number of passengers already registered
+     * @return if the flight is available
+     */
+    private boolean isAvailable(List<User> users) {
+        if (users == null) {
+            return false;
+        }
+
+        if (users.size() < capacity) {
+            return true;
+        }
+        else return false;
     }
 
     @Override

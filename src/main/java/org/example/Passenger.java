@@ -6,12 +6,14 @@ public class Passenger extends User {
     private boolean frequentFlyer;
     private List<Ticket> tickets;
     private TicketReservation ticketReservation;
+    private Sorting sorting;
 
     public Passenger(int id, String name, String email) {
         super(id, name, email);
         this.frequentFlyer = frequentFlyer;
         this.tickets = new ArrayList<>();
         this.ticketReservation = ticketReservation;
+
     }
 
     /**
@@ -82,6 +84,10 @@ public class Passenger extends User {
      * allows for the user to see all their flight reservations
      */
     public void viewMyReservations() {
+        if (tickets == null) {
+            return;
+        }
+
         if (tickets.isEmpty()) {
             System.out.println("You have no reservations.");
             return;
@@ -89,6 +95,21 @@ public class Passenger extends User {
         System.out.println("Your Reservations:");
         for (Ticket ticket : tickets) {
             System.out.println("- " + ticket);
+        }
+    }
+
+    /**
+     * sorting based on id, then name if the id is the same
+     */
+    class idNameComparator implements Comparator<Passenger> {
+
+        @Override
+        public int compare(Passenger o1, Passenger o2) {
+            if (sorting.compareTo(Sorting.NAME) == 0) {
+                return o1.name.compareTo(o2.name);
+            }
+
+            else return o1.id - o2.id;
         }
     }
 
@@ -131,5 +152,9 @@ public class Passenger extends User {
 
     public void setTickets(List<Ticket> tickets) {
         this.tickets = tickets;
+    }
+
+    public static enum Sorting {
+        ID, NAME;
     }
 }

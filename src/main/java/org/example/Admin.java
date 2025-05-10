@@ -1,8 +1,5 @@
 package org.example;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Admin extends User {
     private TicketReservation ticketReservation;
 
@@ -34,4 +31,3 @@ public class Admin extends User {
         TicketReservation.cancelFlight(flightId);
     }
 }
-

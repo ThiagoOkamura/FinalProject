@@ -49,6 +49,10 @@ public class TicketReservation {
      * @param flightId the flight ID of the reservation
      */
     public static void confirmReservation(String flightId) {
+        if (flightId == null) {
+            return;
+        }
+
         if (statuses.containsKey(flightId) && statuses.get(flightId).equals("pending")) {
             statuses.put(flightId, "confirmed");
             System.out.println("Reservation confirmed for flight: " + flightId);
@@ -61,6 +65,10 @@ public class TicketReservation {
      * shows all the registrations in a flight
      */
     public static void viewAllRegistrations() {
+        if (bookings == null) {
+            return;
+        }
+
         System.out.println("All Registrations:");
         for (String flightId : bookings.keySet()) {
             String passenger = bookings.get(flightId);
@@ -75,6 +83,10 @@ public class TicketReservation {
      * @param newDetails the new flight details
      */
     public void modifyTicket(String flightId, String newDetails) {
+        if (flightId == null || newDetails == null) {
+            return;
+        }
+
         if (bookings.containsKey(flightId)) {
             bookings.put(flightId, newDetails);
             System.out.println("Booking modified: " + flightId);
@@ -87,6 +99,10 @@ public class TicketReservation {
      * shows all bookings
      */
     public void viewAllBookings() {
+        if (bookings == null) {
+            return;
+        }
+
         System.out.println("All Bookings:");
         for (Map.Entry<String, String> entry : bookings.entrySet()) {
             System.out.println("Ticket ID: " + entry.getKey() + ", Details: " + entry.getValue());
